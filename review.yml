@@ -1,0 +1,52 @@
+---
+name: Universiti Sains Malaysia
+description: Universiti Sains Malaysia public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/usm/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      USM has a real but mostly gated API footprint. An institutional API developer
+      portal exists at api.usm.my (operated by PPKT), returning HTTP 200, but its
+      catalog and docs are behind login with no public endpoints or specifications.
+      The one openly verifiable machine-readable interface is the EPrints 3.3.16
+      institutional repository at eprints.usm.my, whose OAI-PMH 2.0 endpoint returns
+      a valid Identify response (repositoryName "USM Repository", admin
+      eprints@usm.my). No official USM GitHub organization was found
+      (github.com/usm-my returns 404). No data.usm.my or developer.usm.my subdomain
+      resolves. No endpoints were fabricated; only live-verified surfaces are
+      cataloged.
+    endpoints:
+      - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+        status: 200
+        note: Live OAI-PMH 2.0 Identify response, EPrints 3.3.16, USM Repository.
+      - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+        status: 200
+        note: OAI-PMH ListMetadataFormats verb responds.
+      - url: https://eprints.usm.my/
+        status: 200
+        note: Repository@USM EPrints landing page.
+      - url: https://api.usm.my/
+        status: 200
+        note: API@USM developer portal landing page; catalog gated behind login.
+      - url: https://api.usm.my/docs
+        status: 404
+        note: No public docs path found.
+      - url: https://lib.usm.my/
+        status: 200
+        note: USM Library site; no public API documentation surfaced.
+      - url: https://www.usm.my/en/
+        status: 403
+        note: Official website; blocks automated/bot requests but is the live institutional site.
+      - url: https://github.com/usm-my
+        status: 404
+        note: No official USM GitHub organization found.
+      - url: https://developer.usm.my/
+        status: 0
+        note: Does not resolve.
+      - url: https://data.usm.my/
+        status: 0
+        note: Does not resolve; no open-data portal found.
+---
