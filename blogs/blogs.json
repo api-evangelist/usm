@@ -1,0 +1,14 @@
+{
+  "repo": "usm",
+  "feeds": [
+    {
+      "source": "https://news.usm.my/",
+      "feed_url": "https://news.usm.my/",
+      "title": "USM News Portal",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}

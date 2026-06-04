@@ -1,0 +1,60 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "usm": "https://www.usm.my/en/#",
+    "schema": "https://schema.org/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "foundingDate": "schema:foundingDate",
+    "location": "schema:location",
+    "sameAs": "schema:sameAs",
+    "CollegeOrUniversity": "schema:CollegeOrUniversity",
+    "EntryPoint": "schema:EntryPoint",
+    "WebAPI": "schema:WebAPI",
+    "documentation": "schema:documentation",
+    "potentialAction": "schema:potentialAction",
+    "api": {
+      "@id": "usm:api",
+      "@container": "@set"
+    },
+    "humanURL": "schema:url",
+    "baseURL": {
+      "@id": "schema:urlTemplate",
+      "@type": "@id"
+    },
+    "repository": {
+      "@id": "usm:repository",
+      "@type": "@id"
+    }
+  },
+  "@type": "CollegeOrUniversity",
+  "@id": "https://www.usm.my/en/",
+  "name": "Universiti Sains Malaysia",
+  "url": "https://www.usm.my/en/",
+  "description": "Universiti Sains Malaysia (USM) is a public research university founded in 1969 and headquartered in Penang, Malaysia, holding APEX status.",
+  "foundingDate": "1969",
+  "location": "Penang, Malaysia",
+  "sameAs": [
+    "https://www.linkedin.com/school/universiti-sains-malaysia-official/",
+    "https://en.wikipedia.org/wiki/Universiti_Sains_Malaysia"
+  ],
+  "api": [
+    {
+      "@type": "WebAPI",
+      "@id": "https://eprints.usm.my/cgi/oai2",
+      "name": "USM Repository OAI-PMH",
+      "description": "OAI-PMH 2.0 metadata-harvesting interface for the USM Repository (EPrints 3.3.16).",
+      "documentation": "https://eprints.usm.my/",
+      "url": "https://eprints.usm.my/cgi/oai2"
+    },
+    {
+      "@type": "WebAPI",
+      "@id": "https://api.usm.my/",
+      "name": "API@USM Developer Portal (Gated)",
+      "description": "USM institutional API developer portal operated by PPKT; catalog and documentation require authentication.",
+      "documentation": "https://api.usm.my/",
+      "url": "https://api.usm.my/"
+    }
+  ]
+}
