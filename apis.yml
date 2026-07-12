@@ -60,6 +60,8 @@ apis:
       - type: Signup
         url: https://api.usm.my/
 common:
+  - type: DomainSecurity
+    url: security/usm-domain-security.yml
   - type: Website
     url: https://www.usm.my/en/
   - type: DeveloperPortal
