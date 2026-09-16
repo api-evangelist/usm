@@ -1,24 +1,19 @@
----
 aid: usm
 name: Universiti Sains Malaysia
 x-type: university
 x-category: Public Research University
-description: >-
-  Universiti Sains Malaysia (USM) is a public research university founded in 1969 in
-  Penang, Malaysia, holding APEX (Accelerated Programme for Excellence) status. USM
-  operates no developer programme, no API catalog and no developer documentation of any
-  kind, and its programmable footprint is entirely a by-product of the software it runs
-  rather than anything it publishes for integrators. Three institution-operated
-  machine-readable surfaces were verified live on 2026-09-01, all on hosts under usm.my:
-  the OAI-PMH 2.0 endpoint and the EPrints REST/export tree of Repository@USM
-  (eprints.usm.my, EPrints 3.3.16, seventeen export serializations), and USM's own
-  Shibboleth SAML 2.0 identity provider at shibsso.usm.my, registered in the SIFULAN
-  Malaysian Access Federation since 2021 and exported to eduGAIN. USM is a Crossref
-  member (id 8963, prefixes 10.21315 and 10.36777) and holds a ROR record; it is not a
-  DataCite provider or client. The host advertised as an API portal, api.usm.my, is an
-  unmodified commercial HTML template with lorem ipsum body copy and no catalog behind
-  its login — it is scaffolding, not a gated API programme, and this profile no longer
-  counts it as a surface.
+description: 'Universiti Sains Malaysia (USM) is a public research university founded in 1969 in Penang,
+  Malaysia, holding APEX (Accelerated Programme for Excellence) status. USM operates no developer programme,
+  no API catalog and no developer documentation of any kind, and its programmable footprint is entirely
+  a by-product of the software it runs rather than anything it publishes for integrators. Three institution-operated
+  machine-readable surfaces were verified live on 2026-09-01, all on hosts under usm.my: the OAI-PMH 2.0
+  endpoint and the EPrints REST/export tree of Repository@USM (eprints.usm.my, EPrints 3.3.16, seventeen
+  export serializations), and USM''s own Shibboleth SAML 2.0 identity provider at shibsso.usm.my, registered
+  in the SIFULAN Malaysian Access Federation since 2021 and exported to eduGAIN. USM is a Crossref member
+  (id 8963, prefixes 10.21315 and 10.36777) and holds a ROR record; it is not a DataCite provider or client.
+  The host advertised as an API portal, api.usm.my, is an unmodified commercial HTML template with lorem
+  ipsum body copy and no catalog behind its login — it is scaffolding, not a gated API programme, and
+  this profile no longer counts it as a surface.'
 type: Index
 deliveryModel:
   model: self-hosted
@@ -48,282 +43,305 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/usm.png
 url: https://raw.githubusercontent.com/api-evangelist/usm/refs/heads/main/apis.yml
 tags:
-  - University
-  - Higher Education
-  - Education
-  - Public Research University
-  - Malaysia
-  - Southeast Asia
-  - Research
-  - Open Access
-  - Institutional Repository
-  - OAI-PMH
-  - EPrints
+- University
+- Higher Education
+- Education
+- Public Research University
+- Malaysia
+- Southeast Asia
+- Research
+- Open Access
+- Institutional Repository
+- OAI-PMH
+- EPrints
+- Identity Federation
+- Shibboleth
+- SAML
+- Crossref
+created: '2026-06-03'
+modified: '2026-09-16'
+specificationVersion: '0.23'
+apis:
+- aid: usm:shibboleth-idp
+  name: USM Shibboleth Identity Provider (SIFULAN / eduGAIN)
+  x-operator: federation
+  description: 'USM''s own SAML 2.0 Shibboleth identity provider, entityID https://shibsso.usm.my/idp/shibboleth,
+    scope usm.my. Registered in the SIFULAN Malaysian Access Federation on 2021-10-30 under registration
+    authority https://sifulan.my, carried in SIFULAN''s eduGAIN export, and tagged with the REFEDS Research
+    and Scholarship entity category. Published bindings: SSO over HTTP-POST, HTTP-Redirect and POST-SimpleSign
+    plus the Shibboleth 1.0 AuthnRequest profile; SLO over POST, Redirect and SOAP; an AttributeAuthority
+    over SAML1 and SAML2 SOAP; artifact resolution over SOAP. In live production use — an unauthenticated
+    request to eduvpn.usm.my lands on the IdP''s SAML2 Redirect SSO endpoint. A federation is shared by
+    definition; the IdP behind it is USM''s.'
+  humanURL: https://www.usm.my
+  baseURL: https://shibsso.usm.my/idp/shibboleth
+  tags:
   - Identity Federation
   - Shibboleth
   - SAML
-  - Crossref
-created: '2026-06-03'
-modified: '2026-09-01'
-specificationVersion: '0.23'
-apis:
-  - aid: usm:eprints-oai
-    name: USM Repository OAI-PMH
-    x-operator: institution
-    description: >-
-      OAI-PMH 2.0 metadata-harvesting interface for Repository@USM, the EPrints 3.3.16
-      institutional repository USM runs on its own host. The live Identify response
-      gives repositoryName "USM Repository", protocolVersion 2.0, adminEmail
-      eprints@usm.my, earliestDatestamp 2013-07-13T00:03:59Z, deletedRecord persistent
-      and granularity to the second. Six metadata prefixes are advertised — didl, mets,
-      oai_bibl, oai_dc, rdf, uketd_dc. Anonymous read; no key. Two caveats a harvester
-      must know: every error condition returns HTTP 200 with the fault in the body, and
-      the repositoryIdentifier is still the EPrints default "generic.eprints.org"
-      rather than usm.my, so minted OAI identifiers are not globally distinguishable.
-    humanURL: https://eprints.usm.my/
-    baseURL: https://eprints.usm.my/cgi/oai2
-    tags: [ Repository, OAI-PMH, Research, Open Access, Metadata, EPrints ]
-    properties:
-      - type: OpenAPI
-        url: openapi/usm-repository-oai-pmh-openapi.yml
-      - type: Errors
-        url: errors/usm-repository-oai-pmh-errors.yml
-      - type: Examples
-        url: examples/usm-repository-examples.yml
-      - type: Vocabulary
-        url: vocabulary/usm-repository-vocabulary.yml
-      - type: Lifecycle
-        url: lifecycle/usm-repository-lifecycle.yml
-      - type: Authentication
-        url: authentication/usm-authentication.yml
-      - type: Documentation
-        url: https://eprints.usm.my/
-  - aid: usm:eprints-rest
-    name: USM Repository EPrints REST and Export
-    x-operator: institution
-    description: >-
-      Anonymous read interface to Repository@USM beyond OAI-PMH, verified route by
-      route on 2026-09-01. /rest/ exposes three datasets (eprint, user, subject);
-      /rest/eprint/{id}.xml returns full EPrints EP2 data XML; /rest/eprint/{id}/{field}.txt
-      gives single-field plain-text access; /rest/subject/{id}.xml walks the Library of
-      Congress subject tree; and /cgi/export/eprint/{id}/{format}/{filename} serves
-      seventeen verified bibliographic serializations including JSON, RDF/XML, METS,
-      MODS, DIDL, Atom, BibTeX and RIS. One soft-404 trap is documented in the
-      contract: /rest/eprint/{id}.json answers HTTP 200 with the repository's HTML
-      landing page, not JSON.
-    humanURL: https://eprints.usm.my/rest/
-    baseURL: https://eprints.usm.my
-    tags: [ Repository, REST, Research, Open Access, Metadata, EPrints, Bibliographic ]
-    properties:
-      - type: OpenAPI
-        url: openapi/usm-repository-eprints-rest-openapi.yml
-      - type: JSONSchema
-        url: json-schema/usm-eprint-record.json
-      - type: Examples
-        url: examples/usm-repository-examples.yml
-      - type: Authentication
-        url: authentication/usm-authentication.yml
-      - type: Lifecycle
-        url: lifecycle/usm-repository-lifecycle.yml
-      - type: Documentation
-        url: https://eprints.usm.my/rest/
-  - aid: usm:shibboleth-idp
-    name: USM Shibboleth Identity Provider (SIFULAN / eduGAIN)
-    x-operator: federation
-    description: >-
-      USM's own SAML 2.0 Shibboleth identity provider, entityID
-      https://shibsso.usm.my/idp/shibboleth, scope usm.my. Registered in the SIFULAN
-      Malaysian Access Federation on 2021-10-30 under registration authority
-      https://sifulan.my, carried in SIFULAN's eduGAIN export, and tagged with the
-      REFEDS Research and Scholarship entity category. Published bindings: SSO over
-      HTTP-POST, HTTP-Redirect and POST-SimpleSign plus the Shibboleth 1.0 AuthnRequest
-      profile; SLO over POST, Redirect and SOAP; an AttributeAuthority over SAML1 and
-      SAML2 SOAP; artifact resolution over SOAP. In live production use — an
-      unauthenticated request to eduvpn.usm.my lands on the IdP's SAML2 Redirect SSO
-      endpoint. A federation is shared by definition; the IdP behind it is USM's.
-    humanURL: https://www.usm.my
-    baseURL: https://shibsso.usm.my/idp/shibboleth
-    tags: [ Identity Federation, Shibboleth, SAML, SSO, eduGAIN, SIFULAN ]
-    properties:
-      - type: Metadata
-        url: https://shibsso.usm.my/idp/shibboleth
-      - type: FederationMetadata
-        url: https://metadata.sifulan.my/metadata.xml
-      - type: Authentication
-        url: authentication/usm-authentication.yml
-      - type: Conformance
-        url: conformance/usm-education-standards-conformance.yml
-  - aid: usm:moodle-ws
-    name: e-Learning@USM Moodle Web Services
-    x-operator: institution
-    description: >-
-      Self-hosted Moodle at elearning.usm.my with the REST web-service server enabled
-      and token-gated. An unauthenticated call returns Moodle's own invalidtoken
-      exception, which proves the service is live rather than absent. The deployment,
-      the host and the data are USM's; the contract is Moodle's, so no Moodle
-      specification is saved under this institution — the relationship is recorded, the
-      vendor's contract is not.
-    humanURL: https://elearning.usm.my/sidang2526/
-    baseURL: https://elearning.usm.my/sidang2526/webservice/rest/server.php
-    tags: [ Learning Management, Moodle, LMS, Token Auth ]
-    properties:
-      - type: Authentication
-        url: authentication/usm-authentication.yml
-      - type: Documentation
-        url: https://elearning.usm.my/sidang2526/
-  - aid: usm:crossref-member
-    name: Crossref membership — Universiti Sains Malaysia
-    x-operator: registry
-    description: >-
-      USM is Crossref member 8963, registering DOIs under prefixes 10.21315 (USM Press
-      journals such as the Malaysian Journal of Medical Sciences, Journal of Physical
-      Science, Kajian Malaysia and Tropical Life Sciences Research) and 10.36777. As of
-      2026-09-01 the membership carries 4,955 registered DOIs — 1,365 current and 3,590
-      backfile. This is a fact about USM recorded through a shared registry; Crossref's
-      own contract belongs to Crossref and is not saved here.
-    humanURL: https://www.crossref.org/
-    baseURL: https://api.crossref.org/members/8963
-    tags: [ Registry, DOI, Crossref, Scholarly Publishing, Membership ]
-    properties:
-      - type: Registration
-        url: https://api.crossref.org/members/8963
-      - type: Conformance
-        url: conformance/usm-education-standards-conformance.yml
-  - aid: usm:ror-record
-    name: ROR record — Universiti Sains Malaysia
-    x-operator: registry
-    description: >-
-      USM's Research Organization Registry identifier, https://ror.org/02rgb2k63. The
-      identifier is the join key used by ORCID, Crossref and DataCite to attribute
-      research output to the institution — 4,821 ORCID records carried an affiliation
-      to this ROR id on 2026-09-01. Hospital Universiti Sains Malaysia holds a separate
-      ROR record (0090j2029) and is not this entity.
-    humanURL: https://ror.org/02rgb2k63
-    baseURL: https://api.ror.org/v2/organizations/02rgb2k63
-    tags: [ Registry, ROR, Research Identifiers, Membership ]
-    properties:
-      - type: Registration
-        url: https://ror.org/02rgb2k63
-      - type: Conformance
-        url: conformance/usm-education-standards-conformance.yml
-common:
-  - type: Website
-    url: https://www.usm.my/en/
-  - type: ResearchRepository
-    url: https://eprints.usm.my/
-  - type: IdentityFederation
+  - SSO
+  - eduGAIN
+  - SIFULAN
+  properties:
+  - type: Metadata
     url: https://shibsso.usm.my/idp/shibboleth
-  - type: LibraryCatalog
-    url: https://lib.usm.my/
-  - type: DeveloperPortal
-    url: https://api.usm.my/
-  - type: Blog
-    url: https://news.usm.my/
-  - type: Support
-    url: https://ppkt.usm.my/
-  - type: AIPolicy
-    url: https://cdae.usm.my/images/DownloadPDF/GARIS%20PANDUAN%20PENGGUNAAN%20TEKNOLOGI%20KECERDASAN%20BUATAN%20GENERATIF%20KBG%20DALAM%20PENGAJARAN%20DAN%20PEMBELAJARAN%20PdP%20PENDIDIKAN%20TINGGI.pdf
-  - type: LinkedIn
-    url: https://www.linkedin.com/school/universiti-sains-malaysia-official/
-  - type: OpenAPI
-    url: openapi/usm-repository-oai-pmh-openapi.yml
-  - type: OpenAPI
-    url: openapi/usm-repository-eprints-rest-openapi.yml
-  - type: JSONSchema
-    url: json-schema/usm-eprint-record.json
-  - type: Examples
-    url: examples/usm-repository-examples.yml
-  - type: Errors
-    url: errors/usm-repository-oai-pmh-errors.yml
+  - type: FederationMetadata
+    url: https://metadata.sifulan.my/metadata.xml
   - type: Authentication
     url: authentication/usm-authentication.yml
   - type: Conformance
     url: conformance/usm-education-standards-conformance.yml
+- aid: usm:moodle-ws
+  name: e-Learning@USM Moodle Web Services
+  x-operator: institution
+  description: Self-hosted Moodle at elearning.usm.my with the REST web-service server enabled and token-gated.
+    An unauthenticated call returns Moodle's own invalidtoken exception, which proves the service is live
+    rather than absent. The deployment, the host and the data are USM's; the contract is Moodle's, so
+    no Moodle specification is saved under this institution — the relationship is recorded, the vendor's
+    contract is not.
+  humanURL: https://elearning.usm.my/sidang2526/
+  baseURL: https://elearning.usm.my/sidang2526/webservice/rest/server.php
+  tags:
+  - Learning Management
+  - Moodle
+  - LMS
+  - Token Auth
+  properties:
+  - type: Authentication
+    url: authentication/usm-authentication.yml
+  - type: Documentation
+    url: https://elearning.usm.my/sidang2526/
+- aid: usm:crossref-member
+  name: Crossref membership — Universiti Sains Malaysia
+  x-operator: registry
+  description: USM is Crossref member 8963, registering DOIs under prefixes 10.21315 (USM Press journals
+    such as the Malaysian Journal of Medical Sciences, Journal of Physical Science, Kajian Malaysia and
+    Tropical Life Sciences Research) and 10.36777. As of 2026-09-01 the membership carries 4,955 registered
+    DOIs — 1,365 current and 3,590 backfile. This is a fact about USM recorded through a shared registry;
+    Crossref's own contract belongs to Crossref and is not saved here.
+  humanURL: https://www.crossref.org/
+  baseURL: https://api.crossref.org/members/8963
+  tags:
+  - Registry
+  - DOI
+  - Crossref
+  - Scholarly Publishing
+  - Membership
+  properties:
+  - type: Registration
+    url: https://api.crossref.org/members/8963
+  - type: Conformance
+    url: conformance/usm-education-standards-conformance.yml
+- aid: usm:ror-record
+  name: ROR record — Universiti Sains Malaysia
+  x-operator: registry
+  description: USM's Research Organization Registry identifier, https://ror.org/02rgb2k63. The identifier
+    is the join key used by ORCID, Crossref and DataCite to attribute research output to the institution
+    — 4,821 ORCID records carried an affiliation to this ROR id on 2026-09-01. Hospital Universiti Sains
+    Malaysia holds a separate ROR record (0090j2029) and is not this entity.
+  humanURL: https://ror.org/02rgb2k63
+  baseURL: https://api.ror.org/v2/organizations/02rgb2k63
+  tags:
+  - Registry
+  - ROR
+  - Research Identifiers
+  - Membership
+  properties:
+  - type: Registration
+    url: https://ror.org/02rgb2k63
+  - type: Conformance
+    url: conformance/usm-education-standards-conformance.yml
+- aid: usm:usm-export-api
+  name: Universiti Sains Malaysia Export API
+  description: EPrints export plugins — one bibliographic serialization per format.
+  humanURL: https://eprints.usm.my/
+  baseURL: https://eprints.usm.my/cgi/oai2
+  tags:
+  - Export
+  properties:
+  - type: OpenAPI
+    url: openapi/usm-export-api-openapi.yml
+  - type: Errors
+    url: errors/usm-repository-oai-pmh-errors.yml
+  - type: Examples
+    url: examples/usm-repository-examples.yml
   - type: Vocabulary
     url: vocabulary/usm-repository-vocabulary.yml
   - type: Lifecycle
     url: lifecycle/usm-repository-lifecycle.yml
-  - type: Rules
-    url: rules/usm-rules.yml
-  - type: JSONLD
-    url: json-ld/usm-context.jsonld
-  - type: DomainSecurity
-    url: security/usm-domain-security.yml
-  - type: Plans
-    url: plans/usm-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/usm-rate-limits.yml
-  - type: FinOps
-    url: finops/usm-finops.yml
-  - type: Review
-    url: review.yml
+  - type: Authentication
+    url: authentication/usm-authentication.yml
+  - type: Documentation
+    url: https://eprints.usm.my/
+  - type: JSONSchema
+    url: json-schema/usm-eprint-record.json
+  - type: Documentation
+    url: https://eprints.usm.my/rest/
+- aid: usm:usm-oai-pmh-api
+  name: Universiti Sains Malaysia OAI PMH API
+  description: OAI-PMH 2.0 protocol verbs exposed by Repository@USM.
+  humanURL: https://eprints.usm.my/
+  baseURL: https://eprints.usm.my/cgi/oai2
+  tags:
+  - OAI-PMH
+  properties:
+  - type: OpenAPI
+    url: openapi/usm-oai-pmh-api-openapi.yml
+  - type: Errors
+    url: errors/usm-repository-oai-pmh-errors.yml
+  - type: Examples
+    url: examples/usm-repository-examples.yml
+  - type: Vocabulary
+    url: vocabulary/usm-repository-vocabulary.yml
+  - type: Lifecycle
+    url: lifecycle/usm-repository-lifecycle.yml
+  - type: Authentication
+    url: authentication/usm-authentication.yml
+  - type: Documentation
+    url: https://eprints.usm.my/
+  - type: JSONSchema
+    url: json-schema/usm-eprint-record.json
+  - type: Documentation
+    url: https://eprints.usm.my/rest/
+- aid: usm:usm-repository-api
+  name: Universiti Sains Malaysia Repository API
+  description: EPrints REST dataset and record access.
+  humanURL: https://eprints.usm.my/
+  baseURL: https://eprints.usm.my/cgi/oai2
+  tags:
+  - Repository
+  properties:
+  - type: OpenAPI
+    url: openapi/usm-repository-api-openapi.yml
+  - type: Errors
+    url: errors/usm-repository-oai-pmh-errors.yml
+  - type: Examples
+    url: examples/usm-repository-examples.yml
+  - type: Vocabulary
+    url: vocabulary/usm-repository-vocabulary.yml
+  - type: Lifecycle
+    url: lifecycle/usm-repository-lifecycle.yml
+  - type: Authentication
+    url: authentication/usm-authentication.yml
+  - type: Documentation
+    url: https://eprints.usm.my/
+  - type: JSONSchema
+    url: json-schema/usm-eprint-record.json
+  - type: Documentation
+    url: https://eprints.usm.my/rest/
+common:
+- type: Website
+  url: https://www.usm.my/en/
+- type: ResearchRepository
+  url: https://eprints.usm.my/
+- type: IdentityFederation
+  url: https://shibsso.usm.my/idp/shibboleth
+- type: LibraryCatalog
+  url: https://lib.usm.my/
+- type: DeveloperPortal
+  url: https://api.usm.my/
+- type: Blog
+  url: https://news.usm.my/
+- type: Support
+  url: https://ppkt.usm.my/
+- type: AIPolicy
+  url: https://cdae.usm.my/images/DownloadPDF/GARIS%20PANDUAN%20PENGGUNAAN%20TEKNOLOGI%20KECERDASAN%20BUATAN%20GENERATIF%20KBG%20DALAM%20PENGAJARAN%20DAN%20PEMBELAJARAN%20PdP%20PENDIDIKAN%20TINGGI.pdf
+- type: LinkedIn
+  url: https://www.linkedin.com/school/universiti-sains-malaysia-official/
+- type: OpenAPI
+  url: openapi/_original/usm-repository-oai-pmh-openapi.yml
+- type: OpenAPI
+  url: openapi/_original/usm-repository-eprints-rest-openapi.yml
+- type: JSONSchema
+  url: json-schema/usm-eprint-record.json
+- type: Examples
+  url: examples/usm-repository-examples.yml
+- type: Errors
+  url: errors/usm-repository-oai-pmh-errors.yml
+- type: Authentication
+  url: authentication/usm-authentication.yml
+- type: Conformance
+  url: conformance/usm-education-standards-conformance.yml
+- type: Vocabulary
+  url: vocabulary/usm-repository-vocabulary.yml
+- type: Lifecycle
+  url: lifecycle/usm-repository-lifecycle.yml
+- type: Rules
+  url: rules/usm-rules.yml
+- type: JSONLD
+  url: json-ld/usm-context.jsonld
+- type: DomainSecurity
+  url: security/usm-domain-security.yml
+- type: Plans
+  url: plans/usm-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/usm-rate-limits.yml
+- type: FinOps
+  url: finops/usm-finops.yml
+- type: Review
+  url: review.yml
 x-coverage:
   state: covered
   reason: covered
-  detail: >-
-    Three institution-operated machine-readable surfaces were found, probed and
-    contracted on 2026-09-01 — the Repository@USM OAI-PMH endpoint, the Repository@USM
-    EPrints REST and export tree, and USM's own Shibboleth SAML identity provider in
-    SIFULAN and eduGAIN — plus a token-gated self-hosted Moodle web-service endpoint and
-    two registry memberships (Crossref 8963, ROR 02rgb2k63). What USM does NOT have is a
-    developer programme: no catalog, no documentation, no terms, no status page, no
-    changelog, no GitHub organization (github.com/usm-my 404), no open-data portal
-    (data.usm.my does not resolve), and no declared metadata or data policy — the
-    repository still ships the EPrints default "this server has not yet been fully
-    configured" text. The api.usm.my "developer portal" carried in the June 2026 profile
-    as a gated catalog was re-examined and is an unmodified TemplateMo "Chain App Dev"
-    HTML template with lorem ipsum copy and info@company.co as its contact; it has been
-    removed from apis[] and is retained only as a DeveloperPortal pointer. A previously
-    recorded 403 on www.usm.my was a bot challenge, not a dead host — it returns 200 to
-    a browser User-Agent. On the AI axis, the only guidance found on a USM host is the
-    Ministry of Higher Education's national generative-AI guideline (Garis Panduan Penggunaan
-    Teknologi Kecerdasan Buatan Generatif dalam PdP Pendidikan Tinggi), republished as a PDF by
-    USM's Centre for Development of Academic Excellence at cdae.usm.my — it is recorded as the
-    AIPolicy pointer because it is the operative guidance, but it is MOHE's document, not a
-    USM-authored policy, and no USM-authored AI policy was found in English or Malay.
+  detail: 'Three institution-operated machine-readable surfaces were found, probed and contracted on 2026-09-01
+    — the Repository@USM OAI-PMH endpoint, the Repository@USM EPrints REST and export tree, and USM''s
+    own Shibboleth SAML identity provider in SIFULAN and eduGAIN — plus a token-gated self-hosted Moodle
+    web-service endpoint and two registry memberships (Crossref 8963, ROR 02rgb2k63). What USM does NOT
+    have is a developer programme: no catalog, no documentation, no terms, no status page, no changelog,
+    no GitHub organization (github.com/usm-my 404), no open-data portal (data.usm.my does not resolve),
+    and no declared metadata or data policy — the repository still ships the EPrints default "this server
+    has not yet been fully configured" text. The api.usm.my "developer portal" carried in the June 2026
+    profile as a gated catalog was re-examined and is an unmodified TemplateMo "Chain App Dev" HTML template
+    with lorem ipsum copy and info@company.co as its contact; it has been removed from apis[] and is retained
+    only as a DeveloperPortal pointer. A previously recorded 403 on www.usm.my was a bot challenge, not
+    a dead host — it returns 200 to a browser User-Agent. On the AI axis, the only guidance found on a
+    USM host is the Ministry of Higher Education''s national generative-AI guideline (Garis Panduan Penggunaan
+    Teknologi Kecerdasan Buatan Generatif dalam PdP Pendidikan Tinggi), republished as a PDF by USM''s
+    Centre for Development of Academic Excellence at cdae.usm.my — it is recorded as the AIPolicy pointer
+    because it is the operative guidance, but it is MOHE''s document, not a USM-authored policy, and no
+    USM-authored AI policy was found in English or Malay.'
   evidence:
-    - url: https://eprints.usm.my/cgi/oai2?verb=Identify
-      status: 200
-    - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
-      status: 200
-    - url: https://eprints.usm.my/rest/
-      status: 200
-    - url: https://eprints.usm.my/rest/eprint/16.xml
-      status: 200
-    - url: https://eprints.usm.my/cgi/export/eprint/16/JSON/x
-      status: 200
-    - url: https://metadata.sifulan.my/metadata.xml
-      status: 200
-    - url: https://shibsso.usm.my/idp/shibboleth
-      status: 200
-    - url: https://elearning.usm.my/sidang2526/webservice/rest/server.php
-      status: 200
-    - url: https://api.crossref.org/members/8963
-      status: 200
-    - url: https://api.ror.org/v2/organizations?query=Universiti+Sains+Malaysia
-      status: 200
-    - url: https://api.datacite.org/providers?query=Universiti+Sains+Malaysia
-      status: 200
-    - url: https://www.usm.my/en/
-      status: 200
-    - url: https://api.usm.my/
-      status: 200
-    - url: https://api.usm.my/openapi.json
-      status: 404
-    - url: https://github.com/usm-my
-      status: 404
-    - url: https://data.usm.my/
-      status: 0
-    - url: https://developer.usm.my/
-      status: 0
+  - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+    status: 200
+  - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+    status: 200
+  - url: https://eprints.usm.my/rest/
+    status: 200
+  - url: https://eprints.usm.my/rest/eprint/16.xml
+    status: 200
+  - url: https://eprints.usm.my/cgi/export/eprint/16/JSON/x
+    status: 200
+  - url: https://metadata.sifulan.my/metadata.xml
+    status: 200
+  - url: https://shibsso.usm.my/idp/shibboleth
+    status: 200
+  - url: https://elearning.usm.my/sidang2526/webservice/rest/server.php
+    status: 200
+  - url: https://api.crossref.org/members/8963
+    status: 200
+  - url: https://api.ror.org/v2/organizations?query=Universiti+Sains+Malaysia
+    status: 200
+  - url: https://api.datacite.org/providers?query=Universiti+Sains+Malaysia
+    status: 200
+  - url: https://www.usm.my/en/
+    status: 200
+  - url: https://api.usm.my/
+    status: 200
+  - url: https://api.usm.my/openapi.json
+    status: 404
+  - url: https://github.com/usm-my
+    status: 404
+  - url: https://data.usm.my/
+    status: 0
+  - url: https://developer.usm.my/
+    status: 0
 x-enrichment:
   pipeline: pipeline-university.md
   generated: '2026-09-01'
   method: probed
-  note: >-
-    Re-profiled under the university pipeline's operator axis. No vendor contract was
-    present in this repo to remove; the correction here is the api.usm.my portal, which
-    was credited as a gated API catalog and is a stock HTML template.
+  note: Re-profiled under the university pipeline's operator axis. No vendor contract was present in this
+    repo to remove; the correction here is the api.usm.my portal, which was credited as a gated API catalog
+    and is a stock HTML template.
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
