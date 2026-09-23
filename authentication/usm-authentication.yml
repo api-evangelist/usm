@@ -1,0 +1,84 @@
+---
+name: Universiti Sains Malaysia authentication posture
+description: >-
+  How each Universiti Sains Malaysia surface authenticates, established by probing the
+  live hosts on 2026-09-01. USM publishes no developer authentication documentation of
+  any kind; every statement below comes from an observed response.
+generated: '2026-09-01'
+method: probed
+source: https://eprints.usm.my/ , https://shibsso.usm.my/ , https://api.usm.my/ , https://elearning.usm.my/
+surfaces:
+  - surface: Repository@USM OAI-PMH
+    url: https://eprints.usm.my/cgi/oai2
+    x-operator: institution
+    scheme: none
+    detail: >-
+      Anonymous read. No key, token, referrer or User-Agent condition observed; the
+      endpoint answered an unauthenticated Identify, ListMetadataFormats, ListSets and
+      ListIdentifiers on 2026-09-01.
+    evidence:
+      - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+        status: 200
+  - surface: Repository@USM EPrints REST + export plugins
+    url: https://eprints.usm.my/rest/
+    x-operator: institution
+    scheme: none
+    detail: >-
+      Anonymous read across /rest/eprint/, /rest/subject/ and /cgi/export/. Write
+      operations exist in EPrints but are not exposed to unauthenticated clients and
+      were not probed. No signup, key issuance or rate-limit header was observed.
+    evidence:
+      - url: https://eprints.usm.my/rest/
+        status: 200
+      - url: https://eprints.usm.my/rest/eprint/16.xml
+        status: 200
+  - surface: USM Shibboleth Identity Provider
+    url: https://shibsso.usm.my/idp/shibboleth
+    x-operator: federation
+    scheme: saml2
+    detail: >-
+      USM's own SAML 2.0 / Shibboleth IdP, registered in the SIFULAN Malaysian Access
+      Federation on 2021-10-30 and exported to eduGAIN. Scope usm.my. Carries the
+      REFEDS Research and Scholarship entity category. SSO bindings published:
+      HTTP-POST, HTTP-Redirect, POST-SimpleSign and the Shibboleth 1.0 AuthnRequest
+      profile; SLO over POST, Redirect and SOAP; an AttributeAuthority over SAML1 and
+      SAML2 SOAP. This is the institution's strongest machine-readable identity surface
+      and it is in live use — eduvpn.usm.my redirects an unauthenticated request
+      straight into https://shibsso.usm.my/idp/profile/SAML2/Redirect/SSO.
+    evidence:
+      - url: https://metadata.sifulan.my/metadata.xml
+        status: 200
+      - url: https://shibsso.usm.my/idp/shibboleth
+        status: 200
+      - url: https://eduvpn.usm.my/
+        status: 200
+  - surface: API@USM portal
+    url: https://api.usm.my/
+    x-operator: institution
+    scheme: unknown
+    detail: >-
+      The page renders login and register modals, but the whole site is an unmodified
+      TemplateMo "Chain App Dev" HTML template — body copy is lorem ipsum, the contact
+      address is the template's own info@company.co, and every navigation link is an
+      in-page anchor. No authentication endpoint, no catalog and no documentation path
+      exists behind it (/docs, /openapi.json, /swagger-ui and /robots.txt all 404).
+      Treat the login as scaffolding, not as a gate in front of an API programme.
+    evidence:
+      - url: https://api.usm.my/
+        status: 200
+      - url: https://api.usm.my/openapi.json
+        status: 404
+      - url: https://api.usm.my/docs
+        status: 404
+  - surface: USM Moodle (e-Learning@USM)
+    url: https://elearning.usm.my/sidang2526/
+    x-operator: institution
+    scheme: token
+    detail: >-
+      Self-hosted Moodle with the REST web-service server enabled. An unauthenticated
+      call returns Moodle's own invalidtoken exception, which proves the service is
+      live and token-gated. The contract is Moodle's, not USM's — the deployment and
+      the host are USM's.
+    evidence:
+      - url: https://elearning.usm.my/sidang2526/webservice/rest/server.php?wstoken=x&wsfunction=core_webservice_get_site_info&moodlewsrestformat=json
+        status: 200

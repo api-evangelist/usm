@@ -1,0 +1,45 @@
+---
+name: Repository@USM lifecycle and change posture
+description: >-
+  Versioning, deprecation and change-communication posture of Universiti Sains
+  Malaysia's machine-readable surfaces, as observable from outside. USM publishes no
+  changelog, status page, deprecation policy or API terms; the facts below are what the
+  protocol itself reveals.
+generated: '2026-09-01'
+method: probed
+source: https://eprints.usm.my/cgi/oai2?verb=Identify
+x-operator: institution
+surfaces:
+  - surface: Repository@USM OAI-PMH
+    protocol_version: '2.0'
+    software_version: EPrints 3.3.16
+    earliest_datestamp: '2013-07-13T00:03:59Z'
+    granularity: YYYY-MM-DDThh:mm:ssZ
+    deleted_record_policy: persistent
+    incremental_harvest: >-
+      Supported via from/until and resumptionToken; deletions are retained
+      permanently, so a harvester can maintain a faithful mirror indefinitely.
+    versioning: >-
+      No API versioning. The endpoint is the OAI-PMH 2.0 verb interface and changes
+      only if the software is upgraded.
+    change_communication: none observed
+  - surface: Repository@USM EPrints REST + export
+    software_version: EPrints 3.3.16
+    versioning: >-
+      Unversioned paths. The EP2 data namespace (http://eprints.org/ep2/data/2.0) is
+      the only version marker in the payload.
+    change_communication: none observed
+    stability_risk: >-
+      EPrints 3.3.16 is a long-superseded release. Consumers should expect the surface
+      to change shape without notice if and when USM upgrades.
+declared_policies:
+  metadata_policy: >-
+    NONE. The Identify response still carries the EPrints default text — "No metadata
+    policy defined. This server has not yet been fully configured... if in doubt assume
+    that NO rights at all are granted to this data." Machine consumers therefore have
+    no licence to rely on.
+  data_policy: NONE, same default text.
+  submission_policy: NONE, same default text.
+  terms_of_service: none published
+  status_page: none found
+  changelog: none found

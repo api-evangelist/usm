@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: USM Repository EPrints REST
+  version: '3.3.16'
+  x-generated: '2026-09-01'
+  x-method: derived
+  x-source: >-
+    Hand-derived from live probes of https://eprints.usm.my/rest/ and
+    https://eprints.usm.my/cgi/export/ on 2026-09-01. Every path, response media type
+    and export format below was individually requested and its status code and
+    Content-Type recorded. USM publishes no OpenAPI for this surface; this description
+    is API Evangelist's, not the institution's.
+  x-operator: institution
+  description: >-
+    Read interface to Repository@USM, the EPrints 3.3.16 institutional repository
+    Universiti Sains Malaysia runs on its own host. Two families were verified live:
+    the EPrints REST tree at /rest/ (dataset indexes for eprint, user and subject; EP2
+    data XML per record at /rest/eprint/{id}.xml; sub-resources such as
+    /rest/eprint/{id}/documents.xml; and plain-text single-field access at
+    /rest/eprint/{id}/{field}.txt), and the export plugin tree at
+    /cgi/export/eprint/{id}/{format}/{filename}, where seventeen formats answered 200
+    with distinct Content-Types. Read access is anonymous; no key, token or OAuth flow
+    is offered or required. NOTE the one soft-404 trap on this host — requesting
+    /rest/eprint/{id}.json returns HTTP 200 with the repository's HTML landing page,
+    not JSON. JSON comes only from the export plugin.
+  contact:
+    name: Repository@USM administrator
+    email: eprints@usm.my
+    url: https://eprints.usm.my/
+servers:
+  - url: https://eprints.usm.my
+    description: Repository@USM (production, verified 2026-09-01)
+tags:
+  - name: Repository
+    description: EPrints REST dataset and record access.
+  - name: Export
+    description: EPrints export plugins — one bibliographic serialization per format.
+paths:
+  /rest/:
+    get:
+      tags: [ Repository ]
+      operationId: listDatasets
+      summary: List the REST datasets exposed by the repository
+      description: >-
+        Returns an XHTML index. Verified 2026-09-01 — three datasets are exposed:
+        eprint, user, subject.
+      responses:
+        '200':
+          description: XHTML index of datasets.
+          content:
+            text/html:
+              schema: { type: string, contentMediaType: text/html }
+  /rest/eprint/:
+    get:
+      tags: [ Repository ]
+      operationId: listEprints
+      summary: List every eprint id in the repository
+      description: >-
+        XHTML index of every record id. Large — 5.0 MB on 2026-09-01. Prefer OAI-PMH
+        ListIdentifiers for incremental harvesting.
+      responses:
+        '200':
+          description: XHTML index of eprint ids.
+          content:
+            text/html:
+              schema: { type: string, contentMediaType: text/html }
+  /rest/eprint/{eprintid}.xml:
+    get:
+      tags: [ Repository ]
+      operationId: getEprintXml
+      summary: Get one record as EPrints EP2 data XML
+      description: >-
+        Returns the full record in the http://eprints.org/ep2/data/2.0 namespace,
+        including nested documents and files. Verified 200 text/xml on 2026-09-01.
+      parameters:
+        - name: eprintid
+          in: path
+          required: true
+          schema: { type: integer }
+          examples: [ 16 ]
+      responses:
+        '200':
+          description: EP2 data XML for the record.
+          content:
+            text/xml:
+              schema: { type: string, contentMediaType: text/xml }
+  /rest/eprint/{eprintid}/documents.xml:
+    get:
+      tags: [ Repository ]
+      operationId: getEprintDocuments
+      summary: Get the document (file) set attached to a record
+      parameters:
+        - name: eprintid
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: EP2 documents XML.
+          content:
+            text/xml:
+              schema: { type: string, contentMediaType: text/xml }
+  /rest/eprint/{eprintid}/{field}.txt:
+    get:
+      tags: [ Repository ]
+      operationId: getEprintField
+      summary: Get a single metadata field as plain text
+      description: >-
+        Field-level access. Verified with field=title on 2026-09-01 (200 text/plain).
+      parameters:
+        - name: eprintid
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: field
+          in: path
+          required: true
+          description: EPrints field name, for example title or abstract.
+          schema: { type: string }
+      responses:
+        '200':
+          description: Field value as plain text.
+          content:
+            text/plain:
+              schema: { type: string }
+  /rest/subject/{subjectid}.xml:
+    get:
+      tags: [ Repository ]
+      operationId: getSubject
+      summary: Get one subject-classification node as EP2 XML
+      parameters:
+        - name: subjectid
+          in: path
+          required: true
+          schema: { type: string }
+          examples: [ 'Q' ]
+      responses:
+        '200':
+          description: EP2 subjects XML.
+          content:
+            text/xml:
+              schema: { type: string, contentMediaType: text/xml }
+  /cgi/export/eprint/{eprintid}/{format}/{filename}:
+    get:
+      tags: [ Export ]
+      operationId: exportEprint
+      summary: Export one record in a named bibliographic format
+      description: >-
+        Seventeen formats answered 200 on 2026-09-01, each with its own Content-Type.
+        JSON, RDFXML, METS, MODS, DIDL, ContextObject and Atom carry structured
+        content-types; BibTeX, RIS, EndNote, Refer, DC, Simple, Text, COinS and RDFNT
+        return text/plain. The filename segment is arbitrary and only names the
+        download.
+      parameters:
+        - name: eprintid
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: format
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [ JSON, XML, BibTeX, RDFXML, RDFNT, DC, EndNote, METS, MODS, Atom, RIS, ContextObject, Refer, Simple, Text, COinS, DIDL ]
+        - name: filename
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: The record serialized in the requested format.
+          content:
+            application/json:
+              schema:
+                $ref: ../json-schema/usm-eprint-record.json
+            application/rdf+xml:
+              schema: { type: string, contentMediaType: application/rdf+xml }
+            text/plain:
+              schema: { type: string }

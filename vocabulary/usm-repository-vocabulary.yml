@@ -1,0 +1,65 @@
+---
+name: Repository@USM vocabulary
+description: >-
+  Terms actually observed on Universiti Sains Malaysia's repository surfaces, with
+  where each one comes from. Nothing here is aspirational — every value below appeared
+  in a live response on 2026-09-01.
+generated: '2026-09-01'
+method: derived
+source: https://eprints.usm.my/
+x-operator: institution
+namespaces:
+  - prefix: oai
+    uri: http://www.openarchives.org/OAI/2.0/
+    note: OAI-PMH 2.0 response envelope.
+  - prefix: oai_dc
+    uri: http://www.openarchives.org/OAI/2.0/oai_dc/
+    note: Mandatory Dublin Core dissemination format.
+  - prefix: ep2
+    uri: http://eprints.org/ep2/data/2.0
+    note: EPrints EP2 data model, used by every /rest/ XML response.
+  - prefix: uketd_dc
+    uri: http://naca.central.cranfield.ac.uk/ethos-oai/2.0/
+    note: UK ETD Dublin Core profile for theses, advertised by this deployment.
+metadata_formats:
+  - didl
+  - mets
+  - oai_bibl
+  - oai_dc
+  - rdf
+  - uketd_dc
+export_formats:
+  note: Seventeen EPrints export plugins verified live at /cgi/export/eprint/{id}/{format}/{filename}.
+  formats: [ JSON, XML, BibTeX, RDFXML, RDFNT, DC, EndNote, METS, MODS, Atom, RIS, ContextObject, Refer, Simple, Text, COinS, DIDL ]
+record_terms:
+  - term: eprintid
+    meaning: Repository-local record identifier; also the tail of the OAI identifier.
+  - term: eprint_status
+    meaning: Workflow state. "archive" is the live public state.
+  - term: ispublished
+    values: [ pub, inpress, submitted, unpub ]
+    meaning: Publication state; mirrored as OAI setSpecs (hex-encoded "status=..." view keys).
+  - term: full_text_status
+    meaning: Whether the attached document is publicly retrievable (public / restricted / none).
+  - term: divisions
+    meaning: USM school and centre codes, e.g. sch_hum for the School of Humanities.
+  - term: subjects
+    meaning: Library of Congress classification codes; the subject tree is browsable at /rest/subject/.
+  - term: type
+    meaning: EPrints item type, e.g. conference_item, article, thesis.
+set_encoding:
+  note: >-
+    This deployment's OAI setSpecs are hex-encoded EPrints view keys, not readable
+    labels. 7374617475733D707562 decodes to "status=pub" and
+    7375626A656374733D51:5141:5141312D393339 to "subjects=Q:QA:QA1-939". A harvester
+    that expects human-readable setSpecs will not group these correctly.
+identifiers:
+  oai_scheme: oai
+  oai_repository_identifier: generic.eprints.org
+  oai_sample_identifier: oai:generic.eprints.org:16
+  note: >-
+    The repositoryIdentifier is the EPrints default "generic.eprints.org" rather than
+    usm.my. Identifiers minted by this repository are therefore NOT globally
+    distinguishable from those of any other unconfigured EPrints instance — a real
+    interoperability defect in USM's configuration, worth reporting upstream to
+    eprints@usm.my.

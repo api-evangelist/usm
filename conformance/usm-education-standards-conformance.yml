@@ -1,0 +1,110 @@
+---
+name: Universiti Sains Malaysia — education-regime domain standard conformance
+description: >-
+  Conformance of USM's machine-readable surfaces against the Kin Score `education`
+  regime standards list (scim, lti, oneroster, ed-fi, caliper, qti, oai-pmh,
+  shibboleth, saml, orcid, datacite, crossref). Reward-only: a standard is listed
+  below ONLY where a live probe produced the evidence named against it. Absences are
+  recorded as absences, not as gaps to be filled later with a claim.
+generated: '2026-09-01'
+method: probed
+source: live probes of eprints.usm.my, metadata.sifulan.my, api.crossref.org, api.datacite.org, api.ror.org, pub.orcid.org
+conformant:
+  - standard: oai-pmh
+    version: '2.0'
+    status: verified
+    surface: https://eprints.usm.my/cgi/oai2
+    x-operator: institution
+    evidence:
+      - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+        status: 200
+        locator: /OAI-PMH/Identify/protocolVersion = "2.0"
+      - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+        status: 200
+        locator: six metadataPrefix values — didl, mets, oai_bibl, oai_dc, rdf, uketd_dc
+      - url: https://eprints.usm.my/cgi/oai2?verb=ListSets
+        status: 200
+        locator: setSpec hierarchy present
+  - standard: shibboleth
+    status: verified
+    surface: https://shibsso.usm.my/idp/shibboleth
+    x-operator: federation
+    evidence:
+      - url: https://metadata.sifulan.my/metadata.xml
+        status: 200
+        locator: >-
+          EntityDescriptor entityID="https://shibsso.usm.my/idp/shibboleth" with
+          shibmd:Scope "usm.my" and mdrpi:RegistrationInfo
+          registrationAuthority="https://sifulan.my" registrationInstant
+          2021-10-30T16:00:00Z
+      - url: https://shibsso.usm.my/idp/shibboleth
+        status: 200
+        locator: IdP serves its own metadata document
+  - standard: saml
+    version: '2.0'
+    status: verified
+    surface: https://shibsso.usm.my/idp/shibboleth
+    x-operator: federation
+    evidence:
+      - url: https://metadata.sifulan.my/metadata.xml
+        status: 200
+        locator: >-
+          IDPSSODescriptor protocolSupportEnumeration includes
+          urn:oasis:names:tc:SAML:2.0:protocol; SingleSignOnService bindings HTTP-POST,
+          HTTP-Redirect, POST-SimpleSign; AttributeAuthorityDescriptor with SAML1 and
+          SAML2 SOAP AttributeService
+      - url: https://metadata.sifulan.my/edugain-metadata.xml
+        status: 200
+        locator: the same entity is present in the SIFULAN eduGAIN export
+  - standard: crossref
+    status: verified
+    surface: https://api.crossref.org/members/8963
+    x-operator: registry
+    evidence:
+      - url: https://api.crossref.org/members/8963
+        status: 200
+        locator: >-
+          primary-name "Universiti Sains Malaysia", DOI prefixes 10.21315 and 10.36777,
+          4,955 registered DOIs (1,365 current / 3,590 backfile) as of 2026-09-01
+  - standard: orcid
+    status: registry-attested
+    surface: https://pub.orcid.org/v3.0/search/
+    x-operator: registry
+    note: >-
+      Third-party attested, NOT asserted by a USM contract. 4,821 ORCID records carry
+      an affiliation to USM's ROR id. No ORCID field appeared in the sampled EPrints
+      record and USM publishes no ORCID integration of its own, so this is evidence of
+      researchers using ORCID at USM, not of an institutional ORCID interface.
+    evidence:
+      - url: https://pub.orcid.org/v3.0/search/?q=ror-org-id:%22https://ror.org/02rgb2k63%22&rows=0
+        status: 200
+        locator: num-found = 4821
+not_conformant:
+  - standard: datacite
+    status: absent
+    detail: >-
+      No DataCite provider and no DataCite repository client matches Universiti Sains
+      Malaysia. USM mints DOIs through Crossref, not DataCite.
+    evidence:
+      - url: https://api.datacite.org/providers?query=Universiti+Sains+Malaysia
+        status: 200
+        locator: meta.total = 0
+      - url: https://api.datacite.org/clients?query=Universiti+Sains+Malaysia
+        status: 200
+        locator: meta.total = 0
+  - standard: lti
+    status: not_evidenced
+    detail: >-
+      USM self-hosts Moodle, which supports LTI, but no LTI registration, tool
+      configuration or platform endpoint is published on any USM host. Software
+      capability is not institutional conformance and is not credited.
+  - standard: scim
+    status: not_evidenced
+  - standard: oneroster
+    status: not_evidenced
+  - standard: ed-fi
+    status: not_evidenced
+  - standard: caliper
+    status: not_evidenced
+  - standard: qti
+    status: not_evidenced

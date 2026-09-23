@@ -9,33 +9,37 @@
     "foundingDate": "schema:foundingDate",
     "location": "schema:location",
     "sameAs": "schema:sameAs",
+    "identifier": "schema:identifier",
     "CollegeOrUniversity": "schema:CollegeOrUniversity",
     "EntryPoint": "schema:EntryPoint",
     "WebAPI": "schema:WebAPI",
     "documentation": "schema:documentation",
     "potentialAction": "schema:potentialAction",
-    "api": {
-      "@id": "usm:api",
-      "@container": "@set"
-    },
+    "api": { "@id": "usm:api", "@container": "@set" },
     "humanURL": "schema:url",
-    "baseURL": {
-      "@id": "schema:urlTemplate",
-      "@type": "@id"
-    },
-    "repository": {
-      "@id": "usm:repository",
-      "@type": "@id"
-    }
+    "baseURL": { "@id": "schema:urlTemplate", "@type": "@id" },
+    "operator": { "@id": "usm:operator" },
+    "repository": { "@id": "usm:repository", "@type": "@id" }
   },
+  "x-generated": "2026-09-01",
+  "x-method": "derived",
+  "x-source": "apis.yml in this repository, itself built from live probes of usm.my hosts on 2026-09-01",
   "@type": "CollegeOrUniversity",
   "@id": "https://www.usm.my/en/",
   "name": "Universiti Sains Malaysia",
   "url": "https://www.usm.my/en/",
-  "description": "Universiti Sains Malaysia (USM) is a public research university founded in 1969 and headquartered in Penang, Malaysia, holding APEX status.",
+  "description": "Universiti Sains Malaysia (USM) is a public research university founded in 1969 in Penang, Malaysia, holding APEX status. It operates no developer programme; its verified machine-readable surfaces are an EPrints institutional repository and its own Shibboleth SAML identity provider.",
   "foundingDate": "1969",
   "location": "Penang, Malaysia",
+  "identifier": [
+    { "@type": "PropertyValue", "propertyID": "ROR", "value": "https://ror.org/02rgb2k63" },
+    { "@type": "PropertyValue", "propertyID": "Crossref member", "value": "8963" },
+    { "@type": "PropertyValue", "propertyID": "Crossref DOI prefix", "value": "10.21315" },
+    { "@type": "PropertyValue", "propertyID": "Crossref DOI prefix", "value": "10.36777" },
+    { "@type": "PropertyValue", "propertyID": "SAML entityID", "value": "https://shibsso.usm.my/idp/shibboleth" }
+  ],
   "sameAs": [
+    "https://ror.org/02rgb2k63",
     "https://www.linkedin.com/school/universiti-sains-malaysia-official/",
     "https://en.wikipedia.org/wiki/Universiti_Sains_Malaysia"
   ],
@@ -44,17 +48,37 @@
       "@type": "WebAPI",
       "@id": "https://eprints.usm.my/cgi/oai2",
       "name": "USM Repository OAI-PMH",
-      "description": "OAI-PMH 2.0 metadata-harvesting interface for the USM Repository (EPrints 3.3.16).",
+      "description": "OAI-PMH 2.0 metadata-harvesting interface for Repository@USM (EPrints 3.3.16). Anonymous read; six metadata prefixes.",
       "documentation": "https://eprints.usm.my/",
-      "url": "https://eprints.usm.my/cgi/oai2"
+      "url": "https://eprints.usm.my/cgi/oai2",
+      "operator": "institution"
     },
     {
       "@type": "WebAPI",
-      "@id": "https://api.usm.my/",
-      "name": "API@USM Developer Portal (Gated)",
-      "description": "USM institutional API developer portal operated by PPKT; catalog and documentation require authentication.",
-      "documentation": "https://api.usm.my/",
-      "url": "https://api.usm.my/"
+      "@id": "https://eprints.usm.my/rest/",
+      "name": "USM Repository EPrints REST and Export",
+      "description": "Anonymous EPrints REST tree and seventeen verified export serializations for Repository@USM.",
+      "documentation": "https://eprints.usm.my/rest/",
+      "url": "https://eprints.usm.my/rest/",
+      "operator": "institution"
+    },
+    {
+      "@type": "WebAPI",
+      "@id": "https://shibsso.usm.my/idp/shibboleth",
+      "name": "USM Shibboleth Identity Provider",
+      "description": "USM's own SAML 2.0 identity provider, registered in the SIFULAN Malaysian Access Federation and exported to eduGAIN. Scope usm.my.",
+      "documentation": "https://metadata.sifulan.my/metadata.xml",
+      "url": "https://shibsso.usm.my/idp/shibboleth",
+      "operator": "federation"
+    },
+    {
+      "@type": "WebAPI",
+      "@id": "https://elearning.usm.my/sidang2526/webservice/rest/server.php",
+      "name": "e-Learning@USM Moodle Web Services",
+      "description": "Self-hosted Moodle REST web-service endpoint on USM's own host, token-gated. The deployment is USM's; the contract is Moodle's and is not reproduced here.",
+      "documentation": "https://elearning.usm.my/sidang2526/",
+      "url": "https://elearning.usm.my/sidang2526/webservice/rest/server.php",
+      "operator": "institution"
     }
   ]
 }

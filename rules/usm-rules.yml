@@ -1,0 +1,86 @@
+x-generated: '2026-09-01'
+x-method: derived
+x-source: >-
+  Authored against openapi/usm-repository-oai-pmh-openapi.yml and
+  openapi/usm-repository-eprints-rest-openapi.yml and the live eprints.usm.my surfaces
+  they describe. Uses only Spectral built-in functions.
+x-provider: Universiti Sains Malaysia
+x-providerId: usm
+description: >-
+  A Spectral ruleset for the institution-operated contracts in this repository. These
+  are API Evangelist's rules applied to USM's surfaces, not rules USM publishes — USM
+  publishes no API governance of any kind. The host rule below is the one that keeps a
+  vendor's contract from being re-attributed to the institution.
+rules:
+  usm-operator-declared:
+    description: Every USM contract must declare who operates the thing it describes.
+    message: 'info.x-operator is required and must be institution, tenant, vendor, registry, federation or placeholder.'
+    severity: error
+    given: $.info
+    then:
+      field: x-operator
+      function: truthy
+  usm-provenance-method:
+    description: Every USM contract must say how API Evangelist came to hold it.
+    message: 'info.x-method is required (searched|generated|derived|probed|none).'
+    severity: error
+    given: $.info
+    then:
+      field: x-method
+      function: truthy
+  usm-provenance-source:
+    description: Derived contracts must name the live surface they were derived from.
+    message: 'info.x-source is required.'
+    severity: error
+    given: $.info
+    then:
+      field: x-source
+      function: truthy
+  usm-servers-institution-host:
+    description: >-
+      An institution-operated USM contract must be served from a host under usm.my.
+      This is the check that keeps a vendor's contract — Figshare, Pure, Ex Libris,
+      Dataverse — from being credited to the institution.
+    message: 'servers[].url must be under usm.my for an institution-operated USM contract.'
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://[a-z0-9.-]*usm\.my(/|$)'
+  usm-servers-present:
+    description: >-
+      A contract with no servers block cannot be operator-checked by host at all — the
+      hostless class this pipeline exists to catch.
+    message: 'servers must be present and non-empty.'
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+  usm-contact-declared:
+    description: A repository contract must name a contact reachable at the institution.
+    message: 'info.contact is required.'
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+  usm-operation-ids:
+    description: Every operation needs an operationId so agents can address it.
+    message: 'operationId is required on every operation.'
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+  usm-operation-described:
+    description: >-
+      Every operation must carry a description. Status codes alone do not tell a
+      consumer that this host answers 200 with HTML on a .json path.
+    message: 'description is required on every operation.'
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy

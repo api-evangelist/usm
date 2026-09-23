@@ -1,0 +1,82 @@
+    {
+      "subjects": [
+        "PN",
+        "PL"
+      ],
+      "eprintid": 16,
+      "date": "2004-12-18",
+      "userid": 10,
+      "documents": [
+          {
+            "language": "en",
+            "eprintid": 16,
+            "files": [
+                {
+                  "mtime": "2013-07-13 00:03:59",
+                  "datasetid": "document",
+                  "fileid": 187,
+                  "objectid": 8,
+                  "uri": "http:\/\/eprints.usm.my\/id\/file\/187",
+                  "mime_type": "application\/pdf",
+                  "filesize": 725899,
+                  "filename": "hj+salleh+1.pdf"
+                }
+            ],
+            "rev_number": 4,
+            "uri": "http:\/\/eprints.usm.my\/id\/document\/8",
+            "main": "hj+salleh+1.pdf",
+            "mime_type": "application\/pdf",
+            "docid": 8,
+            "format": "application\/pdf",
+            "relation": [
+              {
+                "type": "http:\/\/eprints.org\/relation\/hasVolatileVersion",
+                "uri": "\/id\/document\/28225"
+              },
+              {
+                "type": "http:\/\/eprints.org\/relation\/haspreviewThumbnailVersion",
+                "uri": "\/id\/document\/28225"
+              },
+              {
+                "type": "http:\/\/eprints.org\/relation\/hasVersion",
+                "uri": "\/id\/document\/28225"
+              }
+            ],
+            "security": "public",
+            "pos": 1
+          }
+      ],
+      "rev_number": 17,
+      "creators": [
+        {
+          "name": {
+            "lineage": null,
+            "given": "Muhammad",
+            "honourific": null,
+            "family": "Haji Salleh"
+          }
+        }
+      ],
+      "dir": "disk0\/00\/00\/00\/16",
+      "lastmod": "2013-07-13 00:03:59",
+      "ispublished": "pub",
+      "item_issues_count": 0,
+      "pagerange": "1-22",
+      "event_title": "Seminar Kefahaman Budaya Ke VII : Zurinah Hassan Sirih Pulang Ke Gagang",
+      "metadata_visibility": "no_search",
+      "date_type": "published",
+      "pres_type": "paper",
+      "eprint_status": "archive",
+      "status_changed": "2008-04-17 13:17:44",
+      "event_type": "conference",
+      "datestamp": "2008-04-17 13:17:44",
+      "uri": "http:\/\/eprints.usm.my\/id\/eprint\/16",
+      "full_text_status": "public",
+      "refereed": "TRUE",
+      "divisions": [
+        "sch_hum"
+      ],
+      "abstract": "Sudah menjadi semacam piawai tradisional bahawa watak wanita harus lembut, cantik, menyerahkan kehidupannya pada suami atau lelaki, dan sekiranya dia muda dan cantik harus menyiapkan diri untuk menarik perhatian bakal suami atau lelaki umumnya. Inilah di antara beberapa nilai yang diperturunkan masyarakat Melayu untuk dipatuhi wanita supaya dapat dianggap sebagai wanita yang berbudi bahasa.",
+      "type": "conference_item",
+      "title": "Bhawa Aku Pernah Hidup : Zurinah Hassan Sebagai Pentafsir Waktu dan Peristiwa"
+    }

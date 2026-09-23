@@ -1,0 +1,48 @@
+---
+name: Repository@USM OAI-PMH error conditions
+description: >-
+  Error behaviour of Universiti Sains Malaysia's OAI-PMH endpoint, established by
+  issuing each failing request against the live host and reading the response. Every
+  row below was observed, not assumed from the specification.
+generated: '2026-09-01'
+method: probed
+source: https://eprints.usm.my/cgi/oai2
+x-operator: institution
+transport:
+  note: >-
+    All error conditions return HTTP 200. The error is signalled ONLY by an <error>
+    element inside the OAI-PMH envelope. A client that branches on status code alone
+    will read every one of these as a success.
+  status_code: 200
+  envelope_namespace: http://www.openarchives.org/OAI/2.0/
+errors:
+  - code: badVerb
+    request: GET /cgi/oai2?verb=Bogus
+    http_status: 200
+    message: The value of the verb argument is not a legal OAI-PMH verb
+    observed: '2026-09-01'
+  - code: badArgument
+    request: GET /cgi/oai2?verb=ListRecords
+    http_status: 200
+    message: Missing required argument 'metadataPrefix'
+    observed: '2026-09-01'
+  - code: cannotDisseminateFormat
+    request: GET /cgi/oai2?verb=ListRecords&metadataPrefix=nosuchformat
+    http_status: 200
+    message: "Record not available as metadata type: 'nosuchformat'"
+    observed: '2026-09-01'
+  - code: idDoesNotExist
+    request: GET /cgi/oai2?verb=GetRecord&identifier=oai:generic.eprints.org:99999999&metadataPrefix=oai_dc
+    http_status: 200
+    message: "'oai:generic.eprints.org:99999999' is not a valid item in this repository"
+    observed: '2026-09-01'
+  - code: noRecordsMatch
+    request: GET /cgi/oai2?verb=ListRecords&metadataPrefix=oai_dc&from=2099-01-01
+    http_status: 200
+    message: No items match. None. None at all. Not even deleted ones.
+    observed: '2026-09-01'
+not_observed:
+  - code: noSetHierarchy
+    note: Not reachable — this deployment does expose sets, so the condition cannot be provoked.
+  - code: badResumptionToken
+    note: Not probed.

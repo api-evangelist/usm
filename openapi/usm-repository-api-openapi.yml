@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: USM EPrints REST Repository API
+  version: 3.3.16
+  x-generated: '2026-09-01'
+  x-method: derived
+  x-source: Hand-derived from live probes of https://eprints.usm.my/rest/ and https://eprints.usm.my/cgi/export/ on 2026-09-01. Every path, response media type and export format below was individually requested and its status code and Content-Type recorded. USM publishes no OpenAPI for this surface; this description is API Evangelist's, not the institution's.
+  x-operator: institution
+  description: Read interface to Repository@USM, the EPrints 3.3.16 institutional repository Universiti Sains Malaysia runs on its own host.
+  contact:
+    name: Repository@USM administrator
+    email: eprints@usm.my
+    url: https://eprints.usm.my/
+servers:
+- url: https://eprints.usm.my
+  description: Repository@USM (production, verified 2026-09-01)
+tags:
+- name: Repository
+  description: EPrints REST dataset and record access.
+paths:
+  /rest/:
+    get:
+      tags:
+      - Repository
+      operationId: listDatasets
+      summary: List the REST datasets exposed by the repository
+      description: 'Returns an XHTML index. Verified 2026-09-01 — three datasets are exposed: eprint, user, subject.'
+      responses:
+        '200':
+          description: XHTML index of datasets.
+          content:
+            text/html:
+              schema:
+                type: string
+                contentMediaType: text/html
+  /rest/eprint/:
+    get:
+      tags:
+      - Repository
+      operationId: listEprints
+      summary: List every eprint id in the repository
+      description: XHTML index of every record id. Large — 5.0 MB on 2026-09-01. Prefer OAI-PMH ListIdentifiers for incremental harvesting.
+      responses:
+        '200':
+          description: XHTML index of eprint ids.
+          content:
+            text/html:
+              schema:
+                type: string
+                contentMediaType: text/html
+  /rest/eprint/{eprintid}.xml:
+    get:
+      tags:
+      - Repository
+      operationId: getEprintXml
+      summary: Get one record as EPrints EP2 data XML
+      description: Returns the full record in the http://eprints.org/ep2/data/2.0 namespace, including nested documents and files. Verified 200 text/xml on 2026-09-01.
+      parameters:
+      - name: eprintid
+        in: path
+        required: true
+        schema:
+          type: integer
+        examples:
+        - 16
+      responses:
+        '200':
+          description: EP2 data XML for the record.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml
+  /rest/eprint/{eprintid}/documents.xml:
+    get:
+      tags:
+      - Repository
+      operationId: getEprintDocuments
+      summary: Get the document (file) set attached to a record
+      parameters:
+      - name: eprintid
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: EP2 documents XML.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml
+  /rest/eprint/{eprintid}/{field}.txt:
+    get:
+      tags:
+      - Repository
+      operationId: getEprintField
+      summary: Get a single metadata field as plain text
+      description: Field-level access. Verified with field=title on 2026-09-01 (200 text/plain).
+      parameters:
+      - name: eprintid
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: field
+        in: path
+        required: true
+        description: EPrints field name, for example title or abstract.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Field value as plain text.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /rest/subject/{subjectid}.xml:
+    get:
+      tags:
+      - Repository
+      operationId: getSubject
+      summary: Get one subject-classification node as EP2 XML
+      parameters:
+      - name: subjectid
+        in: path
+        required: true
+        schema:
+          type: string
+        examples:
+        - Q
+      responses:
+        '200':
+          description: EP2 subjects XML.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml

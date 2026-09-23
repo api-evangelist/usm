@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: USM Repository OAI PMH API
+  version: '2.0'
+  x-generated: '2026-09-01'
+  x-method: derived
+  x-source: Hand-derived from live probes of https://eprints.usm.my/cgi/oai2 on 2026-09-01 (verbs Identify, ListMetadataFormats, ListSets, ListIdentifiers, GetRecord and all five error conditions), read against the OAI-PMH 2.0 specification. USM publishes no OpenAPI of its own for this endpoint; this description is API Evangelist's, not the institution's.
+  x-operator: institution
+  description: OAI-PMH 2.0 metadata-harvesting interface for Repository@USM, the EPrints 3.3.16 institutional repository operated by Universiti Sains Malaysia on the institution's own host (eprints.usm.my).
+  contact:
+    name: Repository@USM administrator
+    email: eprints@usm.my
+    url: https://eprints.usm.my/
+  license:
+    name: No metadata or data policy declared by the repository
+    identifier: NONE
+servers:
+- url: https://eprints.usm.my/cgi
+  description: Repository@USM OAI-PMH base URL (production, verified 200 on 2026-09-01)
+tags:
+- name: oai pmh
+  description: OAI-PMH 2.0 protocol verbs exposed by Repository@USM.
+paths:
+  /oai2:
+    get:
+      tags:
+      - oai pmh
+      operationId: oaiRequest
+      summary: Issue an OAI-PMH 2.0 request
+      description: Single-endpoint protocol. The verb parameter selects the operation. All responses are XML in the http://www.openarchives.org/OAI/2.0/ namespace and are returned with HTTP 200 even when the payload carries an element — error signalling is in the body, not the status code (verified 2026-09-01).
+      parameters:
+      - name: verb
+        in: query
+        required: true
+        description: The OAI-PMH verb to execute.
+        schema:
+          type: string
+          enum:
+          - Identify
+          - ListMetadataFormats
+          - ListSets
+          - ListIdentifiers
+          - ListRecords
+          - GetRecord
+      - name: metadataPrefix
+        in: query
+        required: false
+        description: Metadata format for ListIdentifiers, ListRecords and GetRecord. Values advertised by this deployment on 2026-09-01.
+        schema:
+          type: string
+          enum:
+          - didl
+          - mets
+          - oai_bibl
+          - oai_dc
+          - rdf
+          - uketd_dc
+      - name: identifier
+        in: query
+        required: false
+        description: OAI identifier of a single record, for GetRecord. This deployment uses the scheme oai:generic.eprints.org:<eprintid> (sampleIdentifier from Identify).
+        schema:
+          type: string
+          examples:
+          - oai:generic.eprints.org:16
+      - name: from
+        in: query
+        required: false
+        description: Lower bound on datestamp, granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+      - name: until
+        in: query
+        required: false
+        description: Upper bound on datestamp, granularity YYYY-MM-DDThh:mm:ssZ.
+        schema:
+          type: string
+      - name: set
+        in: query
+        required: false
+        description: setSpec to restrict a harvest. This deployment's setSpecs are hex-encoded EPrints view keys (for example status and subjects views).
+        schema:
+          type: string
+      - name: resumptionToken
+        in: query
+        required: false
+        description: Continuation token returned by an incomplete list response.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OAI-PMH response document. Carries the requested payload OR an <error> element; both are HTTP 200.
+          content:
+            text/xml:
+              schema:
+                type: string
+                contentMediaType: text/xml
+                description: OAI-PMH 2.0 response envelope.
+              examples:
+                identify:
+                  summary: Live Identify response (captured 2026-09-01)
+                  externalValue: ../examples/usm-repository-oai-pmh-identify.xml

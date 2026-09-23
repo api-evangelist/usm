@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: USM Repository EPrints REST Export API
+  version: 3.3.16
+  x-generated: '2026-09-01'
+  x-method: derived
+  x-source: Hand-derived from live probes of https://eprints.usm.my/rest/ and https://eprints.usm.my/cgi/export/ on 2026-09-01. Every path, response media type and export format below was individually requested and its status code and Content-Type recorded. USM publishes no OpenAPI for this surface; this description is API Evangelist's, not the institution's.
+  x-operator: institution
+  description: Read interface to Repository@USM, the EPrints 3.3.16 institutional repository Universiti Sains Malaysia runs on its own host.
+  contact:
+    name: Repository@USM administrator
+    email: eprints@usm.my
+    url: https://eprints.usm.my/
+servers:
+- url: https://eprints.usm.my
+  description: Repository@USM (production, verified 2026-09-01)
+tags:
+- name: Export
+  description: EPrints export plugins — one bibliographic serialization per format.
+paths:
+  /cgi/export/eprint/{eprintid}/{format}/{filename}:
+    get:
+      tags:
+      - Export
+      operationId: exportEprint
+      summary: Export one record in a named bibliographic format
+      description: Seventeen formats answered 200 on 2026-09-01, each with its own Content-Type. JSON, RDFXML, METS, MODS, DIDL, ContextObject and Atom carry structured content-types; BibTeX, RIS, EndNote, Refer, DC, Simple, Text, COinS and RDFNT return text/plain. The filename segment is arbitrary and only names the download.
+      parameters:
+      - name: eprintid
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: format
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - JSON
+          - XML
+          - BibTeX
+          - RDFXML
+          - RDFNT
+          - DC
+          - EndNote
+          - METS
+          - MODS
+          - Atom
+          - RIS
+          - ContextObject
+          - Refer
+          - Simple
+          - Text
+          - COinS
+          - DIDL
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The record serialized in the requested format.
+          content:
+            application/json:
+              schema:
+                $ref: ../json-schema/usm-eprint-record.json
+            application/rdf+xml:
+              schema:
+                type: string
+                contentMediaType: application/rdf+xml
+            text/plain:
+              schema:
+                type: string

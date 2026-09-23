@@ -3,50 +3,144 @@ name: Universiti Sains Malaysia
 description: Universiti Sains Malaysia public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/usm/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 reviews:
-  - date: '2026-06-03'
-    rating: 2
-    summary: >-
-      USM has a real but mostly gated API footprint. An institutional API developer
-      portal exists at api.usm.my (operated by PPKT), returning HTTP 200, but its
-      catalog and docs are behind login with no public endpoints or specifications.
-      The one openly verifiable machine-readable interface is the EPrints 3.3.16
-      institutional repository at eprints.usm.my, whose OAI-PMH 2.0 endpoint returns
-      a valid Identify response (repositoryName "USM Repository", admin
-      eprints@usm.my). No official USM GitHub organization was found
-      (github.com/usm-my returns 404). No data.usm.my or developer.usm.my subdomain
-      resolves. No endpoints were fabricated; only live-verified surfaces are
-      cataloged.
-    endpoints:
-      - url: https://eprints.usm.my/cgi/oai2?verb=Identify
-        status: 200
-        note: Live OAI-PMH 2.0 Identify response, EPrints 3.3.16, USM Repository.
-      - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
-        status: 200
-        note: OAI-PMH ListMetadataFormats verb responds.
-      - url: https://eprints.usm.my/
-        status: 200
-        note: Repository@USM EPrints landing page.
-      - url: https://api.usm.my/
-        status: 200
-        note: API@USM developer portal landing page; catalog gated behind login.
-      - url: https://api.usm.my/docs
-        status: 404
-        note: No public docs path found.
-      - url: https://lib.usm.my/
-        status: 200
-        note: USM Library site; no public API documentation surfaced.
-      - url: https://www.usm.my/en/
-        status: 403
-        note: Official website; blocks automated/bot requests but is the live institutional site.
-      - url: https://github.com/usm-my
-        status: 404
-        note: No official USM GitHub organization found.
-      - url: https://developer.usm.my/
-        status: 0
-        note: Does not resolve.
-      - url: https://data.usm.my/
-        status: 0
-        note: Does not resolve; no open-data portal found.
----
+- date: '2026-06-03'
+  rating: 2
+  summary: USM has a real but mostly gated API footprint. An institutional API developer portal exists
+    at api.usm.my (operated by PPKT), returning HTTP 200, but its catalog and docs are behind login with
+    no public endpoints or specifications. The one openly verifiable machine-readable interface is the
+    EPrints 3.3.16 institutional repository at eprints.usm.my, whose OAI-PMH 2.0 endpoint returns a valid
+    Identify response (repositoryName "USM Repository", admin eprints@usm.my). No official USM GitHub
+    organization was found (github.com/usm-my returns 404). No data.usm.my or developer.usm.my subdomain
+    resolves. No endpoints were fabricated; only live-verified surfaces are cataloged.
+  endpoints:
+  - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+    status: 200
+    note: Live OAI-PMH 2.0 Identify response, EPrints 3.3.16, USM Repository.
+  - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+    status: 200
+    note: OAI-PMH ListMetadataFormats verb responds.
+  - url: https://eprints.usm.my/
+    status: 200
+    note: Repository@USM EPrints landing page.
+  - url: https://api.usm.my/
+    status: 200
+    note: API@USM developer portal landing page; catalog gated behind login.
+  - url: https://api.usm.my/docs
+    status: 404
+    note: No public docs path found.
+  - url: https://lib.usm.my/
+    status: 200
+    note: USM Library site; no public API documentation surfaced.
+  - url: https://www.usm.my/en/
+    status: 403
+    note: Official website; blocks automated/bot requests but is the live institutional site.
+  - url: https://github.com/usm-my
+    status: 404
+    note: No official USM GitHub organization found.
+  - url: https://developer.usm.my/
+    status: 0
+    note: Does not resolve.
+  - url: https://data.usm.my/
+    status: 0
+    note: Does not resolve; no open-data portal found.
+- date: '2026-09-01'
+  rating: 3
+  summary: 'Re-profiled under the university pipeline''s operator axis. USM operates no developer programme,
+    but three institution-operated machine-readable surfaces were verified live on hosts under usm.my:
+    the Repository@USM OAI-PMH 2.0 endpoint (EPrints 3.3.16, six metadata prefixes), the Repository@USM
+    EPrints REST and export tree (EP2 data XML, single-field plain-text access, seventeen export serializations),
+    and USM''s own Shibboleth SAML 2.0 identity provider at shibsso.usm.my, registered in the SIFULAN
+    Malaysian Access Federation since 2021-10-30 and exported to eduGAIN. A self-hosted Moodle exposes
+    a token-gated REST web service; its contract is Moodle''s and was deliberately not saved here. USM
+    is Crossref member 8963 (prefixes 10.21315, 10.36777, 4,955 DOIs) and holds ROR 02rgb2k63; it is not
+    a DataCite provider or client. THREE CORRECTIONS to the 2026-06-03 review: api.usm.my is NOT a gated
+    API catalog - it is an unmodified TemplateMo ''Chain App Dev'' HTML template with lorem ipsum copy
+    and info@company.co as its contact, and has been removed from apis[]; www.usm.my is not blocking,
+    the earlier 403 was a bot challenge and it returns 200 to a browser User-Agent; and the Shibboleth
+    IdP, the strongest surface USM operates, was missing entirely.'
+  endpoints:
+  - url: https://eprints.usm.my/cgi/oai2?verb=Identify
+    status: 200
+    note: OAI-PMH 2.0 Identify - repositoryName "USM Repository", EPrints 3.3.16, deletedRecord persistent,
+      earliestDatestamp 2013-07-13.
+  - url: https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+    status: 200
+    note: 'Six prefixes: didl, mets, oai_bibl, oai_dc, rdf, uketd_dc.'
+  - url: https://eprints.usm.my/cgi/oai2?verb=ListSets
+    status: 200
+    note: Sets present; setSpecs are hex-encoded EPrints view keys, not readable labels.
+  - url: https://eprints.usm.my/rest/
+    status: 200
+    note: EPrints REST dataset index - eprint, user, subject.
+  - url: https://eprints.usm.my/rest/eprint/16.xml
+    status: 200
+    note: Full record as EPrints EP2 data XML.
+  - url: https://eprints.usm.my/rest/eprint/16/title.txt
+    status: 200
+    note: Single-field plain-text access works.
+  - url: https://eprints.usm.my/rest/eprint/16.json
+    status: 200
+    note: SOFT-404 - returns HTTP 200 with the repository HTML landing page, not JSON. Do not credit as
+      JSON support.
+  - url: https://eprints.usm.my/cgi/export/eprint/16/JSON/x
+    status: 200
+    note: The only verified JSON representation. Sixteen further export formats also answered 200.
+  - url: https://metadata.sifulan.my/metadata.xml
+    status: 200
+    note: SIFULAN federation metadata carrying entityID https://shibsso.usm.my/idp/shibboleth, scope usm.my,
+      registered 2021-10-30.
+  - url: https://shibsso.usm.my/idp/shibboleth
+    status: 200
+    note: USM's IdP serves its own SAML metadata.
+  - url: https://eduvpn.usm.my/
+    status: 200
+    note: Redirects unauthenticated to the IdP SAML2 Redirect SSO endpoint - proof the IdP is in live
+      production use.
+  - url: https://elearning.usm.my/sidang2526/webservice/rest/server.php
+    status: 200
+    note: Self-hosted Moodle REST web service enabled; returns Moodle's invalidtoken exception unauthenticated.
+  - url: https://api.crossref.org/members/8963
+    status: 200
+    note: Crossref member record - prefixes 10.21315 and 10.36777, 4,955 DOIs.
+  - url: https://api.ror.org/v2/organizations?query=Universiti+Sains+Malaysia
+    status: 200
+    note: ROR 02rgb2k63. Hospital USM is a separate record (0090j2029).
+  - url: https://api.datacite.org/providers?query=Universiti+Sains+Malaysia
+    status: 200
+    note: meta.total = 0 - USM is not a DataCite provider. Clients query also returned 0.
+  - url: https://api.usm.my/
+    status: 200
+    note: CORRECTION - unmodified TemplateMo "Chain App Dev" template. Lorem ipsum body copy, contact
+      info@company.co, all nav links in-page anchors. Not a gated catalog.
+  - url: https://api.usm.my/openapi.json
+    status: 404
+    note: No specification. /docs, /swagger-ui and /robots.txt also 404.
+  - url: https://www.usm.my/en/
+    status: 200
+    note: CORRECTION - the 2026-06-03 review recorded 403. That was a bot challenge; a browser User-Agent
+      gets 200.
+  - url: https://lib.usm.my/
+    status: 200
+    note: USM Library site. robots.txt advertises a sitemap that 404s. No public catalog API surfaced.
+  - url: https://news.usm.my/
+    status: 200
+    note: BERITA @ USM, the official news site. No RSS/Atom feed found (/feed 404).
+  - url: https://ims-api.cs.usm.my/
+    status: 404
+    note: Live Go service on a School of Computer Sciences host, but no discoverable public route. Not
+      catalogued.
+  - url: https://escroll.usm.my/
+    status: 503
+    note: Digital-scroll verification service; host resolves, service unavailable. Sibling hosts certapi/certissuer/certchain.usm.my
+      do not resolve.
+  - url: https://github.com/usm-my
+    status: 404
+    note: No official USM GitHub organization.
+  - url: https://data.usm.my/
+    status: 0
+    note: Does not resolve; no open-data portal.
+  - url: https://developer.usm.my/
+    status: 0
+    note: Does not resolve.

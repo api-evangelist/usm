@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/usm/refs/heads/main/json-schema/usm-eprint-record.json",
+  "title": "Repository@USM EPrint record (JSON export)",
+  "description": "Shape of a single record returned by the EPrints JSON export plugin at https://eprints.usm.my/cgi/export/eprint/{eprintid}/JSON/{filename}. Derived field-by-field from the live response for eprint 16 captured on 2026-09-01; fields absent from that record are not asserted here.",
+  "x-generated": "2026-09-01",
+  "x-method": "derived",
+  "x-source": "https://eprints.usm.my/cgi/export/eprint/16/JSON/usm-eprint-16.js",
+  "x-operator": "institution",
+  "type": "array",
+  "items": { "$ref": "#/$defs/eprint" },
+  "$defs": {
+    "eprint": {
+      "type": "object",
+      "required": ["eprintid", "title", "type", "uri", "eprint_status"],
+      "properties": {
+        "eprintid": { "type": "integer", "description": "Repository-local record id." },
+        "rev_number": { "type": "integer", "description": "EPrints revision counter." },
+        "uri": { "type": "string", "format": "uri", "description": "Canonical record URI, http://eprints.usm.my/id/eprint/{eprintid}." },
+        "title": { "type": "string" },
+        "abstract": { "type": "string" },
+        "type": { "type": "string", "description": "EPrints item type, e.g. conference_item, article, thesis." },
+        "eprint_status": { "type": "string", "description": "Workflow state; 'archive' for published records." },
+        "ispublished": { "type": "string", "description": "pub | inpress | submitted | unpub — mirrors the OAI setSpec status views." },
+        "metadata_visibility": { "type": "string" },
+        "full_text_status": { "type": "string", "description": "public | restricted | none." },
+        "refereed": { "type": "string", "description": "TRUE | FALSE, as a string." },
+        "date": { "type": "string", "description": "Publication date, YYYY-MM-DD or a partial date." },
+        "date_type": { "type": "string" },
+        "datestamp": { "type": "string", "description": "Record creation timestamp, 'YYYY-MM-DD hh:mm:ss'." },
+        "lastmod": { "type": "string", "description": "Last modification timestamp, 'YYYY-MM-DD hh:mm:ss'." },
+        "status_changed": { "type": "string" },
+        "userid": { "type": "integer", "description": "Depositing account id." },
+        "dir": { "type": "string", "description": "Internal storage path fragment." },
+        "item_issues_count": { "type": "integer" },
+        "pagerange": { "type": "string" },
+        "event_title": { "type": "string" },
+        "event_type": { "type": "string" },
+        "pres_type": { "type": "string" },
+        "subjects": {
+          "type": "array",
+          "description": "Library of Congress classification codes used by this repository's subject tree.",
+          "items": { "type": "string" }
+        },
+        "divisions": {
+          "type": "array",
+          "description": "USM school/centre codes, e.g. sch_hum.",
+          "items": { "type": "string" }
+        },
+        "creators": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/creator" }
+        },
+        "documents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/document" }
+        }
+      }
+    },
+    "creator": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object",
+          "properties": {
+            "family": { "type": "string" },
+            "given": { "type": "string" },
+            "lineage": { "type": ["string", "null"] },
+            "honourific": { "type": ["string", "null"] }
+          }
+        },
+        "id": { "type": ["string", "null"], "description": "Local author identifier where set. No ORCID iD was present in the sampled record." }
+      }
+    },
+    "document": {
+      "type": "object",
+      "properties": {
+        "docid": { "type": "integer" },
+        "eprintid": { "type": "integer" },
+        "rev_number": { "type": "integer" },
+        "language": { "type": "string" },
+        "format": { "type": "string" },
+        "security": { "type": "string" },
+        "main": { "type": "string" },
+        "files": { "type": "array", "items": { "$ref": "#/$defs/file" } }
+      }
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "fileid": { "type": "integer" },
+        "filename": { "type": "string" },
+        "filesize": { "type": "integer" },
+        "mime_type": { "type": "string" },
+        "datasetid": { "type": "string" },
+        "mtime": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

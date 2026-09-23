@@ -1,0 +1,36 @@
+---
+name: Repository@USM example payloads
+description: >-
+  Real, unedited responses captured from Universiti Sains Malaysia's own hosts. Every
+  file below was fetched live; nothing here is synthesized.
+generated: '2026-09-01'
+method: probed
+source: https://eprints.usm.my/
+x-operator: institution
+examples:
+  - file: usm-repository-oai-pmh-identify.xml
+    request: GET https://eprints.usm.my/cgi/oai2?verb=Identify
+    status: 200
+    media_type: text/xml
+    captured: '2026-09-01'
+    note: >-
+      Confirms repositoryName "USM Repository", protocolVersion 2.0, adminEmail
+      eprints@usm.my, earliestDatestamp 2013-07-13T00:03:59Z, deletedRecord persistent,
+      granularity YYYY-MM-DDThh:mm:ssZ, EPrints 3.3.16. Also shows that the repository
+      declares NO metadata, data or submission policy — the EPrints default text is
+      still in place.
+  - file: usm-repository-oai-pmh-listmetadataformats.xml
+    request: GET https://eprints.usm.my/cgi/oai2?verb=ListMetadataFormats
+    status: 200
+    media_type: text/xml
+    captured: '2026-09-01'
+    note: Six prefixes advertised — didl, mets, oai_bibl, oai_dc, rdf, uketd_dc.
+  - file: usm-repository-eprint-record.json
+    request: GET https://eprints.usm.my/cgi/export/eprint/16/JSON/usm-eprint-16.js
+    status: 200
+    media_type: application/json
+    captured: '2026-09-01'
+    note: >-
+      One full record from the JSON export plugin. This is the ONLY verified JSON
+      representation on the host — /rest/eprint/16.json returns HTTP 200 with the
+      repository's HTML landing page (a soft-404) and must not be read as JSON support.
