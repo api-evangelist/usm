@@ -1,4 +1,4 @@
-# Universiti Sains Malaysia (usm)
+# Universiti Sains Malaysia
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,86 +64,134 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Universiti Sains Malaysia (USM) is a public research university founded in 1969 in Penang, Malaysia, holding APEX status. This repository catalogs USM's public developer/API footprint as an [APIs.json](http://apisjson.org) provider profile, profiled under the API Evangelist **university pipeline** — which settles *who operates* each surface before crediting it to the institution.
+Universiti Sains Malaysia (USM) is a public research university founded in 1969 in Penang, Malaysia, holding APEX (Accelerated Programme for Excellence) status. USM operates no developer programme, no API catalog and no developer documentation of any kind, and its programmable footprint is entirely a by-product of the software it runs rather than anything it publishes for integrators. Three institution-operated machine-readable surfaces were verified live on 2026-09-01, all on hosts under usm.my: the OAI-PMH 2.0 endpoint and the EPrints REST/export tree of Repository@USM (eprints.usm.my, EPrints 3.3.16, seventeen export serializations), and USM's own Shibboleth SAML 2.0 identity provider at shibsso.usm.my, registered in the SIFULAN Malaysian Access Federation since 2021 and exported to eduGAIN. USM is a Crossref member (id 8963, prefixes 10.21315 and 10.36777) and holds a ROR record; it is not a DataCite provider or client. The host advertised as an API portal, api.usm.my, is an unmodified commercial HTML template with lorem ipsum body copy and no catalog behind its login — it is scaffolding, not a gated API programme, and this profile no longer counts it as a surface.
 
-- APIs.json: <https://raw.githubusercontent.com/api-evangelist/usm/refs/heads/main/apis.yml>
-- Run with Naftiko: <https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=usm-api-evangelist&utm_content=repo>
+**Areas:** University · Higher Education · Education · Public Research University · Malaysia · Southeast Asia · Research · Open Access · Institutional Repository · OAI-PMH · EPrints · Identity Federation
 
-## Type
+## Universiti Sains Malaysia on APIs.io
 
-- university / Public Research University
-- Index
-- Consumer
-- 3rd-Party
+Everything profiled for Universiti Sains Malaysia is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/usm/](https://apis.io/providers/usm/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-University, Higher Education, Education, Public Research University, Malaysia, Southeast Asia, Research, Open Access, Institutional Repository, OAI-PMH, EPrints, Identity Federation, Shibboleth, SAML, Crossref
+- [USM Shibboleth Identity Provider (SIFULAN / eduGAIN)](https://apis.io/apis/usm/shibboleth-idp/) — USM's own SAML 2.0 Shibboleth identity provider, entityID https://shibsso.usm.my/idp/shibboleth, scope usm.my. Registered in the SIFULAN Malaysian Access…
+- [e-Learning@USM Moodle Web Services](https://apis.io/apis/usm/moodle-ws/) — Self-hosted Moodle at elearning.usm.my with the REST web-service server enabled and token-gated. An unauthenticated call returns Moodle's own invalidtoken…
+- [Crossref membership — Universiti Sains Malaysia](https://apis.io/apis/usm/crossref-member/) — USM is Crossref member 8963, registering DOIs under prefixes 10.21315 (USM Press journals such as the Malaysian Journal of Medical Sciences, Journal of…
+- [ROR record — Universiti Sains Malaysia](https://apis.io/apis/usm/ror-record/) — USM's Research Organization Registry identifier, https://ror.org/02rgb2k63. The identifier is the join key used by ORCID, Crossref and DataCite to attribute…
+- [Universiti Sains Malaysia Export API](https://apis.io/apis/usm/usm-export-api/) — EPrints export plugins — one bibliographic serialization per format.
+- [Universiti Sains Malaysia OAI PMH API](https://apis.io/apis/usm/usm-oai-pmh-api/) — OAI-PMH 2.0 protocol verbs exposed by Repository@USM.
+- [Universiti Sains Malaysia Repository API](https://apis.io/apis/usm/usm-repository-api/) — EPrints REST dataset and record access.
 
-## Surfaces, by who operates them
+### Published properties
 
-USM runs **no developer programme** — no catalog, no documentation, no terms, no status page, no changelog, no GitHub organization. Everything below is a by-product of software the institution runs, and each entry names its operator.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**institution** — USM's own host, USM's own deployment:
+#### JSON Schema (1)
 
-- **USM Repository OAI-PMH** — OAI-PMH 2.0 harvesting for Repository@USM (EPrints 3.3.16). Six metadata prefixes; anonymous read. Base: `https://eprints.usm.my/cgi/oai2` · [OpenAPI](openapi/usm-repository-oai-pmh-openapi.yml)
-- **USM Repository EPrints REST and Export** — `/rest/` dataset tree, EP2 data XML per record, single-field plain-text access, and seventeen verified export serializations. Base: `https://eprints.usm.my` · [OpenAPI](openapi/usm-repository-eprints-rest-openapi.yml)
-- **e-Learning@USM Moodle Web Services** — self-hosted Moodle with the REST web service enabled and token-gated. The deployment is USM's; the contract is Moodle's and is deliberately not reproduced here.
+The data models the API reads and writes.
 
-**federation** — shared by definition, and the identity provider behind it is USM's:
+- [Repository@USM EPrint record (JSON export)](https://apis.io/schemas/usm/usm-eprint-record/)
 
-- **USM Shibboleth Identity Provider** — `https://shibsso.usm.my/idp/shibboleth`, scope `usm.my`, registered in the SIFULAN Malaysian Access Federation on 2021-10-30 and exported to eduGAIN, carrying the REFEDS Research and Scholarship entity category. In live production use.
+#### JSON-LD (1)
 
-**registry** — facts about USM recorded in a registry other institutions also use:
+Linked-data contexts for the provider's vocabulary.
 
-- **Crossref member 8963** — DOI prefixes 10.21315 and 10.36777, 4,955 registered DOIs.
-- **ROR `02rgb2k63`** — the join key ORCID and Crossref use to attribute USM's research output.
+- [Usm Context](https://apis.io/jsonld/usm/usm-context/)
 
-## Artifacts
+#### Examples (1)
 
-| Artifact | What it holds |
+Example requests and responses.
+
+- [Usm Repository Eprint Record](https://apis.io/examples/usm/usm-repository-eprint-record/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Universiti Sains Malaysia API Rules](https://apis.io/rules/usm/usm-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Usm Authentication](https://apis.io/security/usm/usm-authentication/)
+- [Usm Domain Security](https://apis.io/security/usm/usm-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Usm Plans Pricing](https://apis.io/plans/usm/usm-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Usm Rate Limits](https://apis.io/rate-limits/usm/usm-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Usm Finops](https://apis.io/finops/usm/usm-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.usm.my/en/)
+- [Support](https://ppkt.usm.my/)
+- [Blog](https://www.usm.my/en/news)
+
+## API Evangelist rating
+
+**Kin Score 27.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| [openapi/](openapi/) | Two derived contracts for the repository surfaces, with pristine copies in [`openapi/_original/`](openapi/_original/) |
-| [json-schema/](json-schema/usm-eprint-record.json) | Shape of an EPrints record from the live JSON export |
-| [examples/](examples/) | Unedited live captures — OAI Identify, ListMetadataFormats, one full record |
-| [errors/](errors/usm-repository-oai-pmh-errors.yml) | All five OAI-PMH error conditions, provoked and observed |
-| [authentication/](authentication/usm-authentication.yml) | Per-surface auth posture, every line from a probe |
-| [conformance/](conformance/usm-education-standards-conformance.yml) | Education-regime standards: oai-pmh, shibboleth, saml, crossref verified; datacite absent |
-| [vocabulary/](vocabulary/usm-repository-vocabulary.yml) | Terms and formats actually observed, including the hex-encoded OAI setSpecs |
-| [lifecycle/](lifecycle/usm-repository-lifecycle.yml) | Versioning and change posture — and the policies USM has not declared |
-| [rules/](rules/usm-rules.yml) | Spectral ruleset, including the host check that keeps a vendor's contract out |
+| Discoverability | 71.4 |
+| Contract quality | 27.2 |
+| Contract governance | 11.4 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 18.4 |
 
-## Timestamps
+**Agent readiness 21.6** — agent-aware
 
-- Created: 2026-06-03
-- Modified: 2026-09-01
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-## Common Properties
+**Regulatory alignment 16.7** — Education & Research
 
-- Website: <https://www.usm.my/en/>
-- Research Repository: <https://eprints.usm.my/>
-- Identity Federation: <https://shibsso.usm.my/idp/shibboleth>
-- Library: <https://lib.usm.my/>
-- Developer Portal: <https://api.usm.my/>
-- News: <https://news.usm.my/>
-- IT Support (PPKT): <https://ppkt.usm.my/>
-- LinkedIn: <https://www.linkedin.com/school/universiti-sains-malaysia-official/>
-- AI Policy (see note): the Ministry of Higher Education's national generative-AI guideline, republished by USM's Centre for Development of Academic Excellence at <https://cdae.usm.my/>
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/usm/](https://apis.io/providers/usm/).
 
-## Notes
+## How this profile is made
 
-Only live-verified surfaces are cataloged; no endpoints were fabricated. Three corrections were made on 2026-09-01 against the June 2026 profile:
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-1. **`api.usm.my` is not a gated API catalog.** It is an unmodified TemplateMo "Chain App Dev" HTML template — lorem ipsum body copy, `info@company.co` as the contact address, every navigation link an in-page anchor, and `/docs`, `/openapi.json` and `/swagger-ui` all 404. The login modal is scaffolding, not a gate in front of an API programme. It has been removed from `apis[]` and kept only as a Developer Portal pointer.
-2. **`www.usm.my` is not dead.** The recorded HTTP 403 was a bot challenge; the site returns 200 to a browser User-Agent.
-3. **The repository surface is much larger than one OAI-PMH endpoint**, and USM's Shibboleth IdP — the strongest machine-readable thing the institution operates — was missing entirely.
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Universiti Sains Malaysia: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-Two defects in USM's own configuration are worth reporting upstream to <eprints@usm.my>: the repository still advertises the EPrints default `repositoryIdentifier` `generic.eprints.org` instead of `usm.my`, so its OAI identifiers are not globally distinguishable; and it still ships the default "this server has not yet been fully configured" metadata, data and submission policy text, leaving harvesters with no declared rights over the metadata.
+## Open an issue
 
-On the AI axis, no USM-authored AI policy was found in English or Malay. The only guidance on a USM host is the Ministry of Higher Education's national guideline, *Garis Panduan Penggunaan Teknologi Kecerdasan Buatan Generatif (KBG) dalam Pengajaran dan Pembelajaran Pendidikan Tinggi*, republished as a PDF by USM's Centre for Development of Academic Excellence — it is recorded as the `AIPolicy` pointer because it is the operative guidance, but it is MOHE's document, not USM's.
-
-No `data.usm.my` or `developer.usm.my` subdomain resolves, and no official USM GitHub organization was found (`github.com/usm-my` returns 404). USM is not a DataCite provider or client.
-
-## Maintainers
-
-- Kin Lane — <kin@apievangelist.com>
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/usm/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
